@@ -1,4 +1,4 @@
-lastest
+LAStest
 =======
 
 a simple test compile for the libraries LASread, LAScheck, and CRScompare
