@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 ../lasread/lib/LASread.lib ../lascheck/lib/LAScheck.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\lastest.exe  ..\bin\lastest.exe
+PostBuild_Cmds=copy Release\lastest.exe  bin\lastest.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "lastest - Win32 Debug"
@@ -81,7 +81,7 @@ LINK32=link.exe
 # ADD LINK32 ../lasread/lib/LASreadD.lib ../lascheck/lib/LAScheckD.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Debug\lastest.exe ..\bin\lastest.exe
+PostBuild_Cmds=copy Debug\lastest.exe bin\lastest.exe
 # End Special Build Tool
 
 !ENDIF 
@@ -103,7 +103,19 @@ SOURCE=.\lastest.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\LAScheck\inc\lascheck.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\lasread\inc\lasdefinitions.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\laslibrary\inc\lasheader.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\lasread\inc\lasheader.hpp
 # End Source File
 # Begin Source File
 
@@ -111,7 +123,15 @@ SOURCE=..\laslibrary\inc\laspoint.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\lasread\inc\laspoint.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\laslibrary\inc\lasreader.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LASread\inc\lasreader.hpp
 # End Source File
 # Begin Source File
 
@@ -119,7 +139,15 @@ SOURCE=..\laslibrary\inc\lasreadopener.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\LASread\inc\lasreadopener.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\laslibrary\inc\lasutility.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\lasread\inc\lasutility.hpp
 # End Source File
 # Begin Source File
 
@@ -127,7 +155,19 @@ SOURCE=..\laslibrary\inc\laszip.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\lasread\inc\laszip.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\laslibrary\inc\mydefs.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\lasread\inc\mydefs.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\LAScheck\inc\xmlwriter.hpp
 # End Source File
 # Begin Source File
 
