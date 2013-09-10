@@ -5,7 +5,7 @@
   
   CONTENTS:
   
-    This source code test compiles the LASread, LAScheck, and CRSscan libraries
+    This tool tests the LASread library
 
   PROGRAMMERS:
   
@@ -35,8 +35,6 @@
 
 #include "lasreadopener.hpp"
 #include "lasutility.hpp"
-#include "xmlwriter.hpp"
-#include "lascheck.hpp"
 
 static void byebye(BOOL error, BOOL wait=FALSE)
 {
@@ -59,7 +57,7 @@ int main(int argc, char *argv[])
 {
   int i;
 
-  fprintf(stderr, "This is a test compile of the LASread, LAScheck, and CRSscan libraries.\n");
+  fprintf(stderr, "This tool tests the LASread library.\n");
 
   LASreadOpener lasreadopener;
 
@@ -88,7 +86,7 @@ int main(int argc, char *argv[])
     }
     else if (strcmp(argv[i],"-version") == 0)
     {
-      fprintf(stderr, "\nlastest built %d with LASread (v %d.%d) and LAScheck (v %d.%d) by rapidlasso\n", LASREAD_BUILD_DATE, LASREAD_VERSION_MAJOR, LASREAD_VERSION_MINOR, LASCHECK_VERSION_MAJOR, LASCHECK_VERSION_MINOR);
+      fprintf(stderr, "\nlastest with LASread (v %d.%d) built %d by rapidlasso GmbH\n", LASREAD_VERSION_MAJOR, LASREAD_VERSION_MINOR, LASREAD_BUILD_DATE);
       byebye(FALSE);
     }
     else if (strcmp(argv[i],"-h") == 0 || strcmp(argv[i],"-help") == 0)
@@ -110,22 +108,6 @@ int main(int argc, char *argv[])
     byebye(TRUE, argc == 1);
   }
 
-  // output logging
-
-  XMLwriter xmlwriter;
-
-  // maybe we are doing one summary report
-
-  if (!xmlwriter.open("lastest.xml", "LAStest"))
-  {
-    fprintf(stderr,"ERROR: cannot open 'lastest.xml'\n");
-    byebye(TRUE, argc == 1);
-  }
-
-  // create LAScheck 
-
-  LAScheck lascheck;
-
   // open lasreader
 
   LASreader* lasreader = lasreadopener.open();
@@ -135,56 +117,53 @@ int main(int argc, char *argv[])
     byebye(TRUE, argc == 1);
   }    
 
-  // parse points
+  // report some stats
 
-  LASinventory lasinventory;
+  fprintf(stderr, "name: %s\n", lasreadopener.get_file_name());
+  fprintf(stderr, "version %d.%d\n", (I32)lasreader->header.version_major, (I32)lasreader->header.version_minor);
+  fprintf(stderr, "point_data_format %d\n", (I32)lasreader->header.point_data_format);
 
-  while (lasreader->read_point())
+  // get error pointer
+
+  LASerror* laserror = &lasreader->header;
+
+  // parse points if no fail
+
+  if (!laserror->fails)
   {
-    lasinventory.add(&lasreader->point);
+    LASinventory lasinventory;
+
+    while (lasreader->read_point())
+    {
+      lasinventory.add(&lasreader->point);
+    }
+
+    if (lasinventory.is_active())
+    {
+      fprintf(stderr, "min_gps_time %g\n", lasinventory.min_gps_time);
+      fprintf(stderr, "max_gps_time %g\n", lasinventory.max_gps_time);
+    }
   }
-
-  // check correctness (without output)
-
-  U32 pass = lascheck.check(&lasreader->header, &lasinventory);
-
-  // start a new report
   
-  xmlwriter.begin("report");
+  // report any fails in detail
 
-  // report description of file
-
-  xmlwriter.beginsub("file");
-  xmlwriter.write("name", lasreadopener.get_file_name());
-  xmlwriter.write("path", lasreadopener.get_path());
-  xmlwriter.write("version_major", lasreader->header.version_major);
-  xmlwriter.write("version_minor", lasreader->header.version_minor);
-  xmlwriter.write("point_data_format", lasreader->header.point_data_format);
-  xmlwriter.write("CRS", "not implemented (yet)");
-  xmlwriter.endsub("file");
-
-  // report the verdict
-
-  xmlwriter.beginsub("summary");
-  xmlwriter.write((pass == LAS_PASS ? "pass" : ((pass & LAS_FAIL) ? "fail" : "warning")));
-  xmlwriter.endsub("summary");
-
-  // report details (if necessary)
-
-  if (pass != LAS_PASS)
+  if (laserror->fails)
   {
-    xmlwriter.beginsub("details");
-    pass = lascheck.check(&lasreader->header, &lasinventory, &xmlwriter);
-    xmlwriter.endsub("details");
+    for (i = 0; i < laserror->fail_num; i+=2)
+    {
+      fprintf(stderr, "fail '%s' reason: %s\n", laserror->fails[i], laserror->fails[i+1]);
+    }
   }
 
-  // end the report
+  // report any warnings in detail
 
-  xmlwriter.end("report");
-
-  // close the LAStest XML output file
-
-  xmlwriter.close("LAStest");
+  if (laserror->warnings)
+  {
+    for (i = 0; i < laserror->warning_num; i+=2)
+    {
+      fprintf(stderr, "warning '%s' reason: %s\n", laserror->warnings[i], laserror->warnings[i+1]);
+    }
+  }
 
   lasreader->close();
   delete lasreader;

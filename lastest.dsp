@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /w /W0 /GX /O2 /I "..\lasread\inc" /I "..\lascheck\inc" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /w /W0 /GX /O2 /I "..\lasread\inc" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /i "../src" /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ../lasread/lib/LASread.lib ../lascheck/lib/LAScheck.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 ../lasread/lib/LASread.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\lastest.exe  bin\lastest.exe
@@ -70,7 +70,7 @@ PostBuild_Cmds=copy Release\lastest.exe  bin\lastest.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /w /W0 /Gm /GX /ZI /Od /I "..\lasread\inc" /I "..\lascheck\inc" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /w /W0 /Gm /GX /ZI /Od /I "..\lasread\inc" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /i "..\..\src" /d "_DEBUG"
 BSC32=bscmake.exe
@@ -78,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ../lasread/lib/LASreadD.lib ../lascheck/lib/LAScheckD.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 ../lasread/lib/LASreadD.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\lastest.exe bin\lastest.exe
@@ -103,15 +103,7 @@ SOURCE=.\lastest.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\LAScheck\inc\lascheck.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\lasread\inc\lasdefinitions.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\laslibrary\inc\lasheader.hpp
 # End Source File
 # Begin Source File
 
@@ -119,15 +111,7 @@ SOURCE=..\lasread\inc\lasheader.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\laslibrary\inc\laspoint.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\lasread\inc\laspoint.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\laslibrary\inc\lasreader.hpp
 # End Source File
 # Begin Source File
 
@@ -135,15 +119,7 @@ SOURCE=..\LASread\inc\lasreader.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\laslibrary\inc\lasreadopener.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\LASread\inc\lasreadopener.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\laslibrary\inc\lasutility.hpp
 # End Source File
 # Begin Source File
 
@@ -151,27 +127,11 @@ SOURCE=..\lasread\inc\lasutility.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\laslibrary\inc\laszip.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\lasread\inc\laszip.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\laslibrary\inc\mydefs.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\lasread\inc\mydefs.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\LAScheck\inc\xmlwriter.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\xmlwriter.hpp
 # End Source File
 # End Group
 # Begin Group "Resource Files"
