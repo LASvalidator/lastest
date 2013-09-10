@@ -1,4 +1,4 @@
 lastest
 =======
 
-a simple test compile (LGPL) for the libraries LASread and LAScheck
+a simple test (LGPL) for the LASread library
