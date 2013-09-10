@@ -11,20 +11,20 @@ LINKER  = g++
 #LIBS     = -L/usr/lib32
 #INCLUDE  = -I/usr/include
 
-LASLIBS     = -L../lasread/lib -L../lascheck/lib 
-LASINCLUDE  = -I../lasread/inc -I../lascheck/inc 
+LASLIBS     = -L../LASread/lib
+LASINCLUDE  = -I../LASread/inc
 
 all: lastest
 
 lastest: lastest.o
-	${LINKER} ${BITS} ${COPTS} lastest.o -llasread -llascheck -o $@ ${LIBS} ${LASLIBS} $(INCLUDE) $(LASINCLUDE)
+	${LINKER} ${BITS} ${COPTS} lastest.o -llasread -o $@ ${LIBS} ${LASLIBS} ${INCLUDE} ${LASINCLUDE}
 	cp $@ ../bin
 
 .cpp.o: 
-	${COMPILER} ${BITS} -c ${COPTS} ${INCLUDE} $(LASINCLUDE) $< -o $@
+	${COMPILER} ${BITS} -c ${COPTS} ${INCLUDE} ${LASINCLUDE} $< -o $@
 
 .c.o: 
-	${COMPILER} ${BITS} -c ${COPTS} ${INCLUDE} $(LASINCLUDE) $< -o $@
+	${COMPILER} ${BITS} -c ${COPTS} ${INCLUDE} ${LASINCLUDE} $< -o $@
 
 clean:
 	rm -rf *.o
