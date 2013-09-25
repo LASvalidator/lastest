@@ -140,6 +140,12 @@ int main(int argc, char *argv[])
 
     if (lasinventory.is_active())
     {
+      fprintf(stderr, "min_intensity %d\n", (I32)lasinventory.min_intensity);
+      fprintf(stderr, "max_intensity %d\n", (I32)lasinventory.max_intensity);
+    }
+
+    if (lasinventory.is_active())
+    {
       fprintf(stderr, "min_gps_time %g\n", lasinventory.min_gps_time);
       fprintf(stderr, "max_gps_time %g\n", lasinventory.max_gps_time);
     }
